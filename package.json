@@ -1,0 +1,25 @@
+{
+  "name": "reax",
+  "version": "0.0.1",
+  "description": "Connect React and RxJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziqueq/reax.git"
+  },
+  "keywords": [
+    "react",
+    "rxjs",
+    "rx",
+    "state"
+  ],
+  "author": "Yuriy Yakym",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ziqueq/reax/issues"
+  },
+  "homepage": "https://github.com/ziqueq/reax#readme"
+}
