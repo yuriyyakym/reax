@@ -21,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/ziqueq/reax/issues"
   },
-  "homepage": "https://github.com/ziqueq/reax#readme"
+  "homepage": "https://github.com/ziqueq/reax#readme",
+  "dependencies": {
+    "react": "^15.5.4",
+    "rxjs": "^5.3.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-watch": "^2.0.6"
+  }
 }
