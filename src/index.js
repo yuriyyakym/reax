@@ -19,10 +19,7 @@ export const connect = (streamMap = {}) => (Component) => {
   class ReaxComponent extends PureComponent {
     constructor(props) {
       super(props);
-      props$.subscribe((p) => {
-        console.log(p);
-        this.setState(p);
-      });
+      props$.subscribe(props => this.setState(props));
     }
 
     render() {

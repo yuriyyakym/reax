@@ -11,22 +11,24 @@ const namesGenerator = function*() {
 }
 
 const name$ = Rx.Observable.zip(
-  Rx.Observable.from(namesGenerator()).take(10),
-  Rx.Observable.interval(500)
-).do(([ name ]) => name);
+  Rx.Observable.from(namesGenerator()).take(1000),
+  Rx.Observable.interval(500),
+  name => name
+);
 
 
 // const name$ = Rx.Observable.interval(500);
 
-const Component = ({ name }) => (
+const Component = ({ name, ms }) => (
   <div>
-    <h1>{name}</h1>
-    <h1>Hello</h1>
+    <h1>Hello {name}</h1>
+    <h1>{ms} milliseconds</h1>
   </div>
 );
 
 const observablesMap = {
-  name: name$
+  name: name$,
+  ms: Rx.Observable.interval(100)
 };
 
 const ConnectedComponent = connect(observablesMap)(Component);

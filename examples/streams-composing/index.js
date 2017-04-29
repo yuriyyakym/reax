@@ -187,8 +187,6 @@ process.umask = function() { return 0; };
 },{}],2:[function(require,module,exports){
 'use strict';
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -234,35 +232,36 @@ var namesGenerator = regeneratorRuntime.mark(function namesGenerator() {
   }, namesGenerator, this);
 });
 
-var name$ = Rx.Observable.zip(Rx.Observable.from(namesGenerator()).take(10), Rx.Observable.interval(500)).do(function (_ref) {
-  var _ref2 = _slicedToArray(_ref, 1),
-      name = _ref2[0];
-
+var name$ = Rx.Observable.zip(Rx.Observable.from(namesGenerator()).take(1000), Rx.Observable.interval(500), function (name) {
   return name;
 });
 
 // const name$ = Rx.Observable.interval(500);
 
-var Component = function Component(_ref3) {
-  var name = _ref3.name;
+var Component = function Component(_ref) {
+  var name = _ref.name,
+      ms = _ref.ms;
   return _react2.default.createElement(
     'div',
     null,
     _react2.default.createElement(
       'h1',
       null,
+      'Hello ',
       name
     ),
     _react2.default.createElement(
       'h1',
       null,
-      'Hello'
+      ms,
+      ' milliseconds'
     )
   );
 };
 
 var observablesMap = {
-  name: name$
+  name: name$,
+  ms: Rx.Observable.interval(100)
 };
 
 var ConnectedComponent = (0, _index.connect)(observablesMap)(Component);
@@ -45457,9 +45456,8 @@ var connect = exports.connect = function connect() {
 
         var _this = _possibleConstructorReturn(this, (ReaxComponent.__proto__ || Object.getPrototypeOf(ReaxComponent)).call(this, props));
 
-        props$.subscribe(function (p) {
-          console.log(p);
-          _this.setState(p);
+        props$.subscribe(function (props) {
+          return _this.setState(props);
         });
         return _this;
       }
