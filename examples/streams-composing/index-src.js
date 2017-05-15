@@ -16,9 +16,6 @@ const name$ = Rx.Observable.zip(
   name => name
 );
 
-
-// const name$ = Rx.Observable.interval(500);
-
 const Component = ({ name, ms }) => (
   <div>
     <h1>Hello {name}</h1>
@@ -26,9 +23,13 @@ const Component = ({ name, ms }) => (
   </div>
 );
 
-const observablesMap = {
-  name: name$,
-  ms: Rx.Observable.interval(100)
+const observablesMap = ({ lifecycle }) => {
+  console.log(lifecycle);
+  console.log(lifecycle.componentWillReceiveProps);
+  return {
+    name: name$,
+    ms: Rx.Observable.interval(100)
+  };
 };
 
 const ConnectedComponent = connect(observablesMap)(Component);
@@ -37,3 +38,4 @@ ReactDOM.render(
   <ConnectedComponent />,
   document.getElementById('root')
 );
+  
