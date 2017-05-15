@@ -1,7 +1,7 @@
 require("babel-polyfill");
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from '../../src/index.js';
+import { reax } from '../../src/index.js';
 import * as Rx from 'rxjs';
 
 const namesGenerator = function*() {
@@ -23,19 +23,18 @@ const Component = ({ name, ms }) => (
   </div>
 );
 
-const observablesMap = ({ lifecycle }) => {
-  console.log(lifecycle);
-  console.log(lifecycle.componentWillReceiveProps);
+const props = ({ lifecycle: { componentWillReceiveProps, componentDidMount } }) => {
+  componentWillReceiveProps.subscribe(console.log);
+  componentDidMount.subscribe(console.log.bind(console, 'Mounted!'));
   return {
     name: name$,
     ms: Rx.Observable.interval(100)
   };
 };
 
-const ConnectedComponent = connect(observablesMap)(Component);
+const ConnectedComponent = reax(props)(Component);
 
 ReactDOM.render(
   <ConnectedComponent />,
   document.getElementById('root')
 );
-  
