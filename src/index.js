@@ -23,7 +23,7 @@ const createLifecycle = lifecycle$ => new Proxy({}, {
   }
 });
 
-// arg: dictionaly or callback that returns dictionary of streams and another properties
+// arg: dictionary or callback that returns dictionary of streams and another properties
 export const reax = (arg) => (Component) => {
   const lifecycle$ = new Rx.Subject();
   const lifecycle = createLifecycle(lifecycle$);
@@ -44,12 +44,12 @@ export const reax = (arg) => (Component) => {
   );
 
   class InnerComponent extends PureComponent {
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps(nextProps) {
       lifecycle$.next({
         event: 'componentWillReceiveProps',
         value: {
-          previousProps: this.props,
-          nextProps: props
+          props: this.props,
+          nextProps
         }
       });
     }
