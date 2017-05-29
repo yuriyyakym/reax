@@ -9,6 +9,7 @@ const templateIndex = path.resolve(__dirname, '../src/index.html');
 module.exports = {
   devtool: 'eval',
   entry: [
+    '../../../reax',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
     sourceFolder
@@ -26,14 +27,18 @@ module.exports = {
     })
   ],
   resolve: {
-    modules: [
-      path.resolve(__dirname, '../../..'),
+    // modules: [
+    //   path.resolve(__dirname, '../../../'),
+    //   'node_modules'
+    // ],
+    modulesDirectories: [
+      '../../../reax',
       'node_modules'
     ],
     extensions: [ '', '.js' ],
-    alias: {
-      reax: path.resolve(__dirname, '../../..')
-    }
+    // alias: {
+    //   reax: path.resolve(__dirname, '../../../')
+    // }
   },
   module: {
     // rules: [
