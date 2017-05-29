@@ -1,4 +1,6 @@
-export default (lifecycle$) => new Proxy({}, {
+import { LIFECYCLE_METHODS } from './constants';
+
+const createLifecycleProxy = lifecycle$ => new Proxy({}, {
   get: (target, name) => {
     if(name in target) {
       return target[name];
@@ -17,3 +19,5 @@ export default (lifecycle$) => new Proxy({}, {
     return observable$;
   }
 });
+
+export default createLifecycleProxy;

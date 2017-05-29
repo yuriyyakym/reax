@@ -49,8 +49,8 @@ export const reax = (arg) => (Component) => {
   };
 }
 
-const getParams = (arg, lifecycle, props$) => arg instanceof Function
-  ? arg;
+const getParams = (arg, lifecycle$, props$) => !(arg instanceof Function)
+  ? arg
   : arg({
     lifecycle: createLifecycle(lifecycle$),
     lifecycle$,

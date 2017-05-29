@@ -32,7 +32,7 @@ module.exports = {
     //   'node_modules'
     // ],
     modulesDirectories: [
-      '../../../reax',
+      '../../../',
       'node_modules'
     ],
     extensions: [ '', '.js' ],
