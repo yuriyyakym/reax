@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import * as Rx from 'rxjs';
 import createLifecycle from './lifecycle-proxy';
-import { LIFECYCLE_METHOD, LIFECYCLE_METHODS } from './constants';
+import { LIFECYCLE_METHOD, LIFECYCLE_METHODS } from './constants.js';
 
 // arg: dictionary or callback that returns dictionary of streams and another properties
 export const reax = (arg) => (Component) => {
@@ -35,7 +35,7 @@ export const reax = (arg) => (Component) => {
       props$.next(props);
       lifecycle$.next({
         event: 'componentWillReceiveProps',
-        value: nextProps
+        value: props
       });
     }
 
