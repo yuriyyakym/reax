@@ -8,15 +8,26 @@ const createTodo = (description) => ({
 
 const newTodoDescription$ = new Rx.Subject();
 const addNewTodoClick$ = new Rx.Subject();
+const deleteTodoClick$ = new Rx.Subject();
+
 const addNewTodo$ = addNewTodoClick$.withLatestFrom(
-  newTodoDescription$
-    .pluck('target')
-    .pluck('value'),
+  newTodoDescription$,
   (_, description) => (todos) => [ ...todos, createTodo(description) ]
 );
 
+const deleteTodo$ = deleteTodoClick$.map(index => todos => [
+  ...todos.slice(0, index),
+  ...todos.slice(index + 1)
+]);
+
 const todos$ = new Rx.Observable.merge(
-  addNewTodo$
+  addNewTodo$,
+  deleteTodo$
 ).scan((todos, modifyingFn) => modifyingFn(todos), initialValue)
 
-export { addNewTodoClick$, newTodoDescription$, todos$ };
+export {
+  addNewTodoClick$,
+  deleteTodoClick$,
+  newTodoDescription$,
+  todos$
+};

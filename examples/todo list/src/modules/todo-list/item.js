@@ -1,8 +1,17 @@
 import React from 'react';
-import { reax } from 'reax';
+import { reax, replicateEvent } from 'reax';
+import { deleteTodoClick$ } from '../../services/todo-list';
 
-const Item = ({ description }) => (
-  <div className="item">{description}</div>
+const Item = ({ description, index }) => (
+  <div className="item">
+    {description}
+
+    <div
+      className="delete"
+      onClick={replicateEvent(deleteTodoClick$, () => index)}>
+      &times;
+    </div>
+  </div>
 );
 
 const prepareProps = ({ }) => {

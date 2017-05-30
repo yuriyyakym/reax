@@ -8,9 +8,9 @@ import {
 import List from './list';
 
 const TodoList = ({ }) => (
-  <div>
+  <div className="todo-list">
     <div>
-      <input onChange={replicateEvent(newTodoDescription$)} />
+      <input onChange={replicateEvent(newTodoDescription$, event => event.target.value)} />
       <button onClick={replicateEvent(addNewTodoClick$)}>Add todo</button>
     </div>
 
