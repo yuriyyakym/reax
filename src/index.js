@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import * as Rx from 'rxjs';
+import { combineObjectObservables, groupParams } from './utils';
 import createLifecycle from './lifecycle-proxy';
 import { LIFECYCLE_METHOD, LIFECYCLE_METHODS } from './constants.js';
 
@@ -7,22 +8,9 @@ import { LIFECYCLE_METHOD, LIFECYCLE_METHODS } from './constants.js';
 export const reax = (arg) => (Component) => {
   const lifecycle$ = new Rx.Subject();
   const props$ = new Rx.Subject();
-
-  const streams = getParams(arg, lifecycle$, props$);
-
-  const streamNames = Object.keys(streams);
-  const streams$ = Object.values(streams);
-
-  const combinedStreamsValues$ = Rx.Observable.combineLatest(
-    ...streams$,
-    (...values) => streamNames.reduce(
-      (result, streamName, index) => {
-        result[streamName] = values[index];
-        return result;
-      },
-      {}
-    )
-  );
+  const params = getParams(arg, lifecycle$, props$);
+  const { observables, properties } = groupParams(params);
+  const combinedStreamsValues$ = combineObjectObservables(observables);
 
   return class extends PureComponent {
     constructor(props) {
@@ -44,7 +32,7 @@ export const reax = (arg) => (Component) => {
     }
 
     render() {
-      return <Component {...this.state} {...this.props} />
+      return <Component {...properties} {...this.state} {...this.props} />
     }
   };
 }
