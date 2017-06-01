@@ -10,6 +10,7 @@ export const reax = (arg) => (Component) => {
   const props$ = new Rx.Subject();
   const params = getParams(arg, lifecycle$, props$);
   const { observables, properties } = groupParams(params);
+  console.log(observables);
   const combinedStreamsValues$ = combineObjectObservables(observables);
 
   return class extends PureComponent {
@@ -23,7 +24,7 @@ export const reax = (arg) => (Component) => {
       props$.next(props);
       lifecycle$.next({
         event: 'componentWillReceiveProps',
-        value: props
+        value: Object.assign({}, properties, this.state, props)
       });
     }
 

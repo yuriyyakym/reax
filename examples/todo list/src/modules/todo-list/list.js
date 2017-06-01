@@ -14,5 +14,9 @@ const List = ({ todos = [] }) => {
   return React.createElement('div', { className: 'list' }, components);
 };
 
-const prepareProps = { todos: todos$ };
+const prepareProps = ({ props$ }) => {
+  props$.subscribe(console.log);
+  return { todos: todos$ }
+};
+
 export default reax(prepareProps)(List);
